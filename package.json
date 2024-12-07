@@ -22,6 +22,7 @@
     "prisma:push": "bun backend prisma:push",
     "prisma:deploy": "bun backend prisma:deploy",
     "prisma:generate": "bun backend prisma:generate",
+    "docker:dev": "docker-compose up -d",
     "docker:deploy": "docker-compose -f docker-compose-deploy.yml up -d --build"
   },
   "dependencies": {},

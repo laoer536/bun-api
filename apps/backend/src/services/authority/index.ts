@@ -5,6 +5,7 @@ import { redis } from '../../collection/redis'
 import { auth } from '../../plugin/auth'
 import { ignoreAuthPath } from '../../utils/configs'
 import { sendEmail } from '../../utils/nodemailer'
+import { generateVerificationCode } from './utils'
 
 export const authorityService = new Elysia()
   .use(auth({ exclude: ignoreAuthPath }))
@@ -12,7 +13,7 @@ export const authorityService = new Elysia()
     '/authority/get_verification_code',
     async ({ body }) => {
       const { email } = body
-      const verificationCode = (Math.random() * 1000000).toFixed(0)
+      const verificationCode = generateVerificationCode()
       redis.set(email, verificationCode, 'EX', 60)
       await sendEmail('test', 'The login verification code for this time is ' + verificationCode, email)
       return 'The verification code was successfully obtained, please check it in your mailbox.'
