@@ -129,6 +129,24 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
     }
   }, [verificationCode, email])
   ```
+  
+## Set your environment variables
+
+```dotenv
+MYSQL_DATABASE_URL=mysql://root:my-secret-pw@localhost:3306/bun-api
+# need change
+JWT_SECRETS=xxxxxxxxx
+
+# You need to go to the corresponding platform mailbox to enable SMTP acquisition
+# See the file at "utils/nodemailer.ts"
+# need change
+NODEMAILER_AUTH_EMAIL=xxxxxx
+# need change
+NODEMAILER_AUTH_PASS=xxxxxx
+
+REDIS_HOST = localhost
+REDIS_PORT = 6379
+```
 
 ## Development
 
