@@ -1,32 +1,27 @@
 import { EmailLogin } from '@components/molecules/EmailLogin'
-import { User } from '@prisma/client'
+import { Loading } from '@components/molecules/Loading'
+import { useQuery } from '@tanstack/react-query'
 
 import server from '@/lib/server'
 
 function App() {
-  const [users, setUsers] = useState<User[]>([])
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      server.user.get().then((res) => {
-        if (res.error) {
-          localStorage.removeItem('token')
-          return location.reload()
-        }
-        setUsers(res.data)
-      })
-    }
-  }, [])
-
+  const { data, isSuccess } = useQuery({ queryKey: ['users'], queryFn: () => server.user.get() })
+  if (!isSuccess) {
+    return <Loading />
+  }
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="flex flex-col gap-2">
-        {users.map((user) => (
-          <div key={user.id}>
-            {user.name}----{user.email}
-          </div>
-        ))}
-      </div>
-      {!localStorage.getItem('token') && <EmailLogin />}
+      {data.error ? (
+        <EmailLogin />
+      ) : (
+        <div className="flex flex-col gap-2">
+          {data.data.map((user) => (
+            <div key={user.id}>
+              {user.name}----{user.email}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
