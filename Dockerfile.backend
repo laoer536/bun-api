@@ -5,10 +5,10 @@ COPY . .
 RUN bun install
 
 # For prisma，by default, only .env files are loaded. Use in docker-compose.
-RUN sed -i 's/localhost:3306/mysql:3306/g' ./packages/backend/.env
-RUN sed -i 's/localhost:3306/mysql:3306/g' ./packages/backend/.env.local
-RUN sed -i 's/REDIS_HOST = localhost/REDIS_HOST = redis/g' ./packages/backend/.env
-RUN sed -i 's/REDIS_HOST = localhost/REDIS_HOST = redis/g' ./packages/backend/.env.local
+RUN sed -i 's/localhost:3306/mysql:3306/g' ./apps/backend/.env
+RUN sed -i 's/localhost:3306/mysql:3306/g' ./apps/backend/.env.local
+RUN sed -i 's/REDIS_HOST = localhost/REDIS_HOST = redis/g' ./apps/backend/.env
+RUN sed -i 's/REDIS_HOST = localhost/REDIS_HOST = redis/g' ./apps/backend/.env.local
 
 ENV NODE_ENV=production
 RUN bun run prisma:generate
@@ -22,6 +22,6 @@ RUN bun run backend:docker-build
 
 ENV NODE_ENV=production
 
-CMD ["./packages/backend/server"]
+CMD ["./apps/backend/server"]
 
 EXPOSE 8090

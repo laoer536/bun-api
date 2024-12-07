@@ -10,6 +10,6 @@ RUN bun run frontend:build
 FROM nginx:alpine AS deploy
 WORKDIR /app
 COPY ./nginx-frontend.conf /etc/nginx/nginx.conf
-COPY --from=build /app/packages/frontend/dist /usr/share/nginx/html
+COPY --from=build /app/apps/frontend/dist /usr/share/nginx/html
 
 EXPOSE 5173

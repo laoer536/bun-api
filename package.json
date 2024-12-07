@@ -2,7 +2,7 @@
   "name": "fullstack-for-bun-api",
   "version": "1.0.50",
   "workspaces": [
-    "packages/*"
+    "apps/*"
   ],
   "trustedDependencies": [
     "@prisma/client",
