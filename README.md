@@ -42,7 +42,7 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
   .
   ├── package.json
   ├── node_modules
-  └── packages
+  └── apps
     ├── frontend
     │   └── package.json
     └── backend
@@ -55,7 +55,7 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
   {
     "name": "fullstack-for-bun-api",
     "version": "1.0.50",
-    "workspaces": ["packages/*"],
+    "workspaces": ["apps/*"],
     "trustedDependencies": ["@prisma/client", "@prisma/engines", "prisma"],
     "scripts": {
       "dev": "bun --filter '*' dev",
