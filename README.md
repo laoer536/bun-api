@@ -76,60 +76,63 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
 
 - Backend
 
-  ```ts
-  import { Elysia } from 'elysia'
-  // import { tracerFn } from './record'
-  import { cors } from '@elysiajs/cors'
-  import { swagger } from '@elysiajs/swagger'
-  import { authorityService, userService } from './services'
+```ts
+import { cors } from '@elysiajs/cors'
+import { swagger } from '@elysiajs/swagger'
+import { Elysia } from 'elysia'
 
-  const app = new Elysia()
-    .use(cors({ origin: 'localhost:5173' }))
-    .use(swagger())
-    .use(authorityService)
-    .use(userService)
+import { authorityService, userService } from './services'
 
-  app.listen(8090)
+const app = new Elysia()
+  .use(cors({ origin: false })) // Why is 'origin: false'? Because we have configured a proxy locally for front-end development, we have set up a reverse proxy for NGINX deployed online.
+  .use(swagger())
+  .use(authorityService)
+  .use(userService)
+  .listen(8090)
 
-  export type App = typeof app
-  ```
+export type App = typeof app
+```
 
 - Frontend
 
   lib/server.ts
 
-  ```ts
-  import { treaty } from '@elysiajs/eden'
-  // "bun-api" form workspace 'bun-api' ,that is your backend project.
-  import type { App } from 'bun-api'
-  const server = treaty<App>('localhost:8090', {
-    headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
-  })
-  export default server // whole type for client request.
-  ```
-
-  Use
-
-  ```tsx
-  import server from '@/lib/server'
-
-  // in react
-  const login = useCallback(async () => {
-    if (verificationCode) {
-      const { data, error } = await server.authority.login.post({ email: email, randomCode: verificationCode })
-      if (!error) {
-        localStorage.setItem('token', data)
-        console.log('Login successful!')
-        location.reload()
-      } else {
-        console.log(`Login failed with the error message is ${error.value}.`)
-      }
-    } else {
-      console.log('Please enter a verification code!')
+```ts
+import { treaty } from '@elysiajs/eden'
+import type { App } from 'bun-api'
+const server = treaty<App>(import.meta.env.VITE_API_BASE_URL, {
+  headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
+  onResponse: (res) => {
+    if (!res.ok) {
+      // do something
     }
-  }, [verificationCode, email])
-  ```
-  
+  },
+})
+export default server
+```
+
+Use
+
+```tsx
+import server from '@/lib/server'
+
+// in react
+const login = useCallback(async () => {
+  if (verificationCode) {
+    const { data, error } = await server.authority.login.post({ email: email, randomCode: verificationCode })
+    if (!error) {
+      localStorage.setItem('token', data)
+      console.log('Login successful!')
+      location.reload()
+    } else {
+      console.log(`Login failed with the error message is ${error.value}.`)
+    }
+  } else {
+    console.log('Please enter a verification code!')
+  }
+}, [verificationCode, email])
+```
+
 ## Set your environment variables
 
 ```dotenv
@@ -169,12 +172,12 @@ bun run dev
 ```shell
 bun run docker:deploy
 ```
+
 or
 
 ```shell
 docker-compose -f docker-compose-deploy.yml up -d --build
 ```
-
 
 Open http://localhost:5173/ with your browser to see the `frontend` project.
 
