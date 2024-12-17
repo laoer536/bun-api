@@ -8,14 +8,13 @@ import { defineConfig, loadEnv } from 'vite'
 export default ({ command, mode }: ConfigEnv) => {
   const currentEnv = loadEnv(mode, process.cwd())
   console.log('Current mode:', command)
-  console.log('Current environment configuration:', currentEnv) //loadEnv即加载根目录下.env.[mode]环境配置文件
+  console.log('Current environment configuration:', currentEnv) //loadEnv is to load the .env in the root directory .env.[mode] environment configuration file
   return defineConfig({
     plugins: [
       react(),
       AutoImport({
         imports: ['react', 'react-router-dom'],
         dts: './src/auto-imports.d.ts',
-        dirs: ['src/store'],
         eslintrc: {
           enabled: true, // Default `false`
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
@@ -24,7 +23,7 @@ export default ({ command, mode }: ConfigEnv) => {
     ],
     //The base path of the project deployment
     base: currentEnv.VITE_PUBLIC_PATH,
-    mode: mode,
+    mode,
     resolve: {
       //别名
       alias: {
@@ -40,24 +39,9 @@ export default ({ command, mode }: ConfigEnv) => {
         },
       },
     },
-    css: {
-      // css预处理器
-      preprocessorOptions: {
-        sass: {},
-      },
-    },
     //构建
     build: {
-      //构建后是否生成 source map 文件
-      // sourcemap: mode != 'production',
-      //打包去掉打印信息 保留debugger vite3需要单独安装terser才行
-      // minify: 'terser',
-      // terserOptions: {
-      //   compress: {
-      //     drop_console: true,
-      //     drop_debugger: false,
-      //   },
-      // },
+      sourcemap: mode != 'production',
     },
   })
 }
