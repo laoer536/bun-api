@@ -1,8 +1,8 @@
-import { EmailLogin } from '@components/molecules/EmailLogin'
-import { Loading } from '@components/molecules/Loading'
 import { useQuery } from '@tanstack/react-query'
 
-import server from '@/lib/server'
+import { EmailLogin } from '@/components/molecules/EmailLogin'
+import { Loading } from '@/components/molecules/Loading'
+import { server } from '@/lib/server'
 
 function App() {
   const { data, isSuccess } = useQuery({ queryKey: ['users'], queryFn: () => server.user.get() })

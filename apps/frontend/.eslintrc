@@ -4,6 +4,7 @@
   },
   "extends": [
     ".eslintrc-auto-import.json",
+    "plugin:@tanstack/query/recommended",
     "code-style-lint-react-ts"
   ],
   "overrides": [{

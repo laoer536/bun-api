@@ -8,4 +8,4 @@ const server = treaty<App>(import.meta.env.VITE_API_BASE_URL, {
     }
   },
 })
-export default server
+export { server }

@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react-swc'
-import { resolve } from 'path'
+import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
@@ -28,12 +28,7 @@ export default ({ command, mode }: ConfigEnv) => {
     resolve: {
       //别名
       alias: {
-        '@': resolve(__dirname, './src'),
-        '@components': resolve(__dirname, './src/components'),
-        '@store': resolve(__dirname, './src/store'),
-        '@views': resolve(__dirname, './src/views'),
-        '@assets': resolve(__dirname, './src/assets'),
-        '@hooks': resolve(__dirname, './src/hooks'),
+        '@': path.resolve(__dirname, './src'),
       },
     },
     server: {
@@ -54,7 +49,7 @@ export default ({ command, mode }: ConfigEnv) => {
     //构建
     build: {
       //构建后是否生成 source map 文件
-      sourcemap: mode != 'production',
+      // sourcemap: mode != 'production',
       //打包去掉打印信息 保留debugger vite3需要单独安装terser才行
       // minify: 'terser',
       // terserOptions: {
