@@ -3,19 +3,19 @@ services:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
-    ports:
-      - '3306:3306'
     volumes:
       - bun-api-mysql-data:/var/lib/mysql
     restart: always
+    networks:
+      - database-network
 
   redis:
     image: redis:latest
-    ports:
-      - '6379:6379'
     volumes:
       - bun-api-redis-data:/data
     restart: always
+    networks:
+      - database-network
 
   frontend:
     build:
@@ -24,18 +24,30 @@ services:
     container_name: frontend
     ports:
       - '5173:5173'
+    environment:
+      - MYSQL_DATABASE_URL=mysql://root:my-secret-pw@mysql:3306/bun-api
+      - NODE_ENV=production
+    networks:
+      - app-network
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
     container_name: backend
-    ports:
-      - '8090:8090'
     depends_on:
       - mysql
       - redis
+    networks:
+      - database-network
+      - app-network
 
 volumes:
   bun-api-mysql-data:
   bun-api-redis-data:
+
+networks:
+  app-network:
+    driver: bridge
+  database-network:
+    driver: bridge

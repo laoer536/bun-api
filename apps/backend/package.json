@@ -12,7 +12,8 @@
     "prisma:push": "prisma generate && prisma db push",
     "prisma:deploy": "prisma generate && prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx --fix"
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@elysiajs/bearer": "^1.1.2",
