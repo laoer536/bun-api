@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password123
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - bun-api-postgres-data:/var/lib/postgresql/data
     networks:
       - database-network
 
@@ -41,14 +41,14 @@ services:
       - DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun_app
       - NODE_ENV=production
     depends_on:
-      - mysql
+      - postgres
       - redis
     networks:
       - database-network
       - app-network
 
 volumes:
-  bun-api-mysql-data:
+  bun-api-postgres-data:
   bun-api-redis-data:
 
 networks:
