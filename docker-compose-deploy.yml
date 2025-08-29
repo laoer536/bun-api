@@ -1,11 +1,14 @@
 services:
-  mysql:
-    image: mysql:8
+  postgres:
+    image: postgres:17
+    container_name: jj-redmine-postgres
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: my-secret-pw
+      POSTGRES_DB: bun_app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
     volumes:
-      - bun-api-mysql-data:/var/lib/mysql
-    restart: always
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - database-network
 
@@ -22,11 +25,10 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
     container_name: frontend
+    environment:
+      - NODE_ENV=production
     ports:
       - '5173:5173'
-    environment:
-      - MYSQL_DATABASE_URL=mysql://root:my-secret-pw@mysql:3306/bun-api
-      - NODE_ENV=production
     networks:
       - app-network
 
@@ -35,6 +37,9 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     container_name: backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun_app
+      - NODE_ENV=production
     depends_on:
       - mysql
       - redis
