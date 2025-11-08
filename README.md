@@ -137,7 +137,7 @@ const login = useCallback(async () => {
 ## Set your environment variables
 
 ```dotenv
-MYSQL_DATABASE_URL=mysql://root:my-secret-pw@localhost:3306/bun-api
+DATABASE_URL=postgresql://root:password123@localhost:5432/bun-api
 # need change
 JWT_SECRETS=xxxxxxxxx
 

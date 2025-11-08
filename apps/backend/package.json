@@ -9,8 +9,9 @@
     "start": "NODE_ENV=production bun src/index.ts",
     "prisma:new": "prisma migrate dev && prisma generate",
     "prisma:pull": "prisma db pull && prisma generate",
-    "prisma:push": "prisma generate && prisma db push",
-    "prisma:deploy": "prisma generate && prisma migrate deploy",
+    "prisma:push": "prisma db push && prisma generate",
+    "prisma:migrate": "prisma migrate dev --name",
+    "prisma:deploy": "prisma migrate deploy && prisma generate",
     "prisma:generate": "prisma generate",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "postinstall": "prisma generate"
