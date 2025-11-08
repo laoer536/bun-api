@@ -184,4 +184,4 @@ Open http://localhost:5173/ with your browser to see the `frontend` project.
 
 Open http://localhost:8090/ with your browser to see the `backend` project.
 
-Open http://localhost:8090/swagger with your browser to see the swagger.
+Open http://localhost:8090/v1/swagger with your browser to see the swagger.
