@@ -1,17 +1,15 @@
+import { toast } from 'sonner'
+
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useToast } from '@/hooks/use-toast'
 import { server } from '@/lib/server'
-
-export const description = "A simple login form with email and password. The submit button says 'Sign in'."
 
 export function EmailLogin() {
   const [isVerificationCodeMode, setIsVerificationCodeMode] = useState(true)
   const emailInputRef = useRef<HTMLInputElement | null>(null)
   const verificationCodeInputRef = useRef<HTMLInputElement | null>(null)
-  const { toast } = useToast()
 
   const getAllFormValues = () => {
     const email = emailInputRef.current?.value
@@ -23,13 +21,11 @@ export function EmailLogin() {
     if (email) {
       const { error } = await server.authority.get_verification_code.post({ email })
       if (!error) {
-        toast({
-          title: 'tips',
+        toast.success('tips', {
           description: 'Successfully obtained the login verification code, please go to your email to check!',
+          position: 'top-center',
         })
         setIsVerificationCodeMode(false)
-      } else {
-        toast({ title: 'tips', description: `${error?.value || 'Failed to obtain the login verification code.'}` })
       }
     }
   }
