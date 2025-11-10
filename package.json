@@ -2,7 +2,7 @@
   "name": "fullstack-for-bun-api",
   "version": "1.0.50",
   "workspaces": [
-    "apps/*"
+    "apps/**"
   ],
   "trustedDependencies": [
     "@prisma/client",
@@ -26,7 +26,6 @@
     "docker:dev": "docker-compose up -d",
     "docker:deploy": "docker-compose -f docker-compose-deploy.yml up -d --build"
   },
-  "dependencies": {},
   "devDependencies": {
     "prettier": "^3.2.5"
   }

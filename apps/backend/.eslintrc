@@ -1,9 +1,0 @@
-{
-  "env": {
-    "node": true
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "extends": ["code-style-lint-ts"]
-}

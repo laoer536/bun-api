@@ -34,11 +34,11 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
       )
       .post(
         '/login',
-        async ({ jwt, body, error }) => {
+        async ({ jwt, body, status }) => {
           const { email, verificationCode } = body
           const preVerificationCode = await redis.get(email)
           if (!preVerificationCode) {
-            return error(400, 'Please get a verification code first.')
+            return status(400, 'Please get a verification code first.')
           }
           if (verificationCode === preVerificationCode) {
             const userInfo = await connection.user.upsert({
@@ -48,7 +48,7 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
             })
             return await jwt.sign({ email: userInfo.email, userId: userInfo.id })
           } else {
-            return error(
+            return status(
               400,
               'The verification code is incorrect, please check your email verification code, or get it again after 60s.',
             )

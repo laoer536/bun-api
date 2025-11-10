@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { server } from '@/lib/server'
+import { useRef, useState } from 'react'
 
 export function EmailLogin() {
   const [isVerificationCodeMode, setIsVerificationCodeMode] = useState(true)
@@ -41,7 +42,7 @@ export function EmailLogin() {
     }
   }
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle className="text-2xl">
           <img src="https://elysiajs.com/assets/elysia.svg" alt="elysia" />
