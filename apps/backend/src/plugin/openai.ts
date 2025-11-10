@@ -1,7 +1,7 @@
 import { openapi } from '@elysiajs/openapi'
 export const openaiPlugin = openapi({
   enabled: true,
-  path: '/openai',
+  path: '/v1-openai',
   documentation: {
     info: { version: '1.0.0', title: 'bun-api', description: 'bun-api for bun fullstack' },
     tags: [
