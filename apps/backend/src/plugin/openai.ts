@@ -1,8 +1,7 @@
-import { swagger } from '@elysiajs/swagger'
-
-export const swaggerPlugin = swagger({
-  scalarConfig: { darkMode: true },
-  path: '/v1/swagger',
+import { openapi } from '@elysiajs/openapi'
+export const openaiPlugin = openapi({
+  enabled: true,
+  path: '/openai',
   documentation: {
     info: { version: '1.0.0', title: 'bun-api', description: 'bun-api for bun fullstack' },
     tags: [
