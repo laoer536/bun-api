@@ -12,3 +12,4 @@ export const app = new Elysia()
   .listen(8090)
 
 export type App = typeof app
+export * from './types/models.ts'

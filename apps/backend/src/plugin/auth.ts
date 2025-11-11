@@ -13,6 +13,7 @@ export const AuthPlugin = new Elysia({ name: 'auth' })
     }),
   )
   .derive({ as: 'scoped' }, async ({ bearer, jwt, status }) => {
+    if (!bearer) status(401, 'Unauthorized')
     const payload = (await jwt.verify(bearer).catch(() => null)) as { email: string } | null
     if (!payload?.email) return status(401, 'Login required')
     const userInfo = await connection.user.findUnique({ where: { email: payload.email } })
