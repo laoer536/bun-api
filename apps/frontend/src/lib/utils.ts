@@ -11,11 +11,12 @@ type ServerFnType<Res extends Record<number, unknown>> = () => Promise<TreatyRes
 
 /**
  * Provide type support for backend requests.
+ * Use only if the server request results do not return the correct type.
  * @param serverFn
  */
-export const wrappedFetch = async <
+export const getTypedServer = async <
   Res = unknown,
-  Fn extends ServerFnType<Record<200, Res>> = ServerFnType<Record<200, Res>>,
+  Fn extends ServerFnType<Record<number, Res>> = ServerFnType<Record<200, Res>>,
 >(
   serverFn: Fn,
 ) => {

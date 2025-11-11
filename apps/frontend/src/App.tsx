@@ -3,13 +3,13 @@ import { useQuery } from '@tanstack/react-query'
 import { EmailLogin } from '@/components/molecules/EmailLogin'
 import { Loading } from '@/components/molecules/Loading'
 import { server } from '@/lib/server'
-import { wrappedFetch } from '@/lib/utils.ts'
+import { getTypedServer } from '@/lib/utils.ts'
 import { UserModelType } from 'bun-api'
 
 function App() {
   const { data, isSuccess } = useQuery({
     queryKey: ['users'],
-    queryFn: () => wrappedFetch<UserModelType['user']>(server.user.get),
+    queryFn: () => getTypedServer<UserModelType['user']>(server.user.get),
   })
   if (!isSuccess) {
     return <Loading />
