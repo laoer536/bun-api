@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -66,7 +66,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react-swc": "^4.2.1",
-    "bun-api": "workspace:*",
+    "backend": "workspace:*",
     "elysia": "^1.4.15",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",

@@ -13,3 +13,7 @@ helm-charts
 .idea
 coverage*
 dist
+
+.env
+.env.*
+!.env.docker
