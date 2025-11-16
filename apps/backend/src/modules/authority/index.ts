@@ -1,7 +1,7 @@
 import { jwt } from '@elysiajs/jwt'
 import { Elysia } from 'elysia'
 import { AuthorityModel } from './model'
-import { Authority } from './service.ts'
+import { AuthorityService } from './service.ts'
 
 export const authorityService = new Elysia({ tags: ['Authority'] })
   .use(
@@ -15,7 +15,7 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
       .post(
         '/get_verification_code',
         async ({ body }) => {
-          return Authority.getVerificationCode(body)
+          return AuthorityService.getVerificationCode(body)
         },
         {
           body: AuthorityModel.getVerificationCodeBody,
@@ -27,7 +27,7 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
       .post(
         '/login',
         async ({ jwt, body }) => {
-          const userInfo = await Authority.login(body)
+          const userInfo = await AuthorityService.login(body)
           return jwt.sign({ email: userInfo.email, userId: userInfo.id })
         },
         {

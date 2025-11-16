@@ -7,7 +7,7 @@ import { connection } from '../../collection/db.ts'
 import { status } from 'elysia'
 
 // If the class does not need to store properties, you can use 'abstract class' to avoid class instance allocation
-export abstract class Authority {
+export abstract class AuthorityService {
   static async getVerificationCode({ email }: AuthorityModelType['getVerificationCodeBody']) {
     const verificationCode = generateVerificationCode()
     redis.set(email, verificationCode, 'EX', 60)

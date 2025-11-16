@@ -9,7 +9,7 @@ import { UserModelType } from 'bun-api'
 function App() {
   const { data, isSuccess } = useQuery({
     queryKey: ['users'],
-    queryFn: () => getTypedServer<UserModelType['user']>(server.user.get),
+    queryFn: () => getTypedServer<UserModelType['users']>(server.user.get),
   })
   if (!isSuccess) {
     return <Loading />

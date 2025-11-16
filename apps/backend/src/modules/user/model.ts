@@ -1,7 +1,7 @@
 import { t } from 'elysia'
 
 export const UserModel = {
-  user: t.Array(
+  users: t.Array(
     t.Object({
       id: t.Number(),
       email: t.String(),
@@ -12,5 +12,5 @@ export const UserModel = {
 
 // 对应的类型导出
 export type UserModelType = {
-  user: typeof UserModel.user.static
+  users: typeof UserModel.users.static
 }
