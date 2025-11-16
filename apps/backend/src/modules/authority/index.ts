@@ -15,8 +15,7 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
       .post(
         '/get_verification_code',
         async ({ body }) => {
-          const { email } = body
-          return Authority.getVerificationCode({ email })
+          return Authority.getVerificationCode(body)
         },
         {
           body: AuthorityModel.getVerificationCodeBody,
@@ -28,8 +27,7 @@ export const authorityService = new Elysia({ tags: ['Authority'] })
       .post(
         '/login',
         async ({ jwt, body }) => {
-          const { email, verificationCode } = body
-          const userInfo = await Authority.login({ email, verificationCode })
+          const userInfo = await Authority.login(body)
           return jwt.sign({ email: userInfo.email, userId: userInfo.id })
         },
         {
