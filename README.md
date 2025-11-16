@@ -56,19 +56,31 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
   {
     "name": "fullstack-for-bun-api",
     "version": "1.0.50",
-    "workspaces": ["apps/*"],
-    "trustedDependencies": ["@prisma/client", "@prisma/engines", "prisma"],
+    "workspaces": [
+      "apps/**"
+    ],
+    "trustedDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
+    ],
     "scripts": {
       "dev": "bun --filter '*' dev",
       "build": "bun --filter '*' build",
       "lint": "bun --filter '*' lint",
-      "frontend": "bun run --filter frontend",
-      "backend": "bun run --filter bun-api",
+      "frontend": "bun --filter frontend",
+      "frontend:build": "bun frontend build",
+      "backend": "bun --filter backend",
+      "backend:docker-build": "bun backend build:docker",
       "prisma:new": "bun backend prisma:new",
       "prisma:pull": "bun backend prisma:pull",
-      "prisma:push": "bun backend prisma:push"
+      "prisma:push": "bun backend prisma:push",
+      "prisma:deploy": "bun backend prisma:deploy",
+      "prisma:migrate": "bun backend prisma:migrate",
+      "prisma:generate": "bun backend prisma:generate",
+      "docker:dev": "docker-compose up -d",
+      "docker:deploy": "docker-compose -f docker-compose-deploy.yml up -d --build"
     },
-    "dependencies": {},
     "devDependencies": {
       "prettier": "^3.2.5"
     }
@@ -79,19 +91,20 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
 
 ```ts
 import { cors } from '@elysiajs/cors'
-import { swagger } from '@elysiajs/swagger'
 import { Elysia } from 'elysia'
 
+import { openaiPlugin } from './plugin/openai'
 import { authorityService, userService } from './services'
 
-const app = new Elysia()
+export const app = new Elysia()
   .use(cors({ origin: false })) // Why is 'origin: false'? Because we have configured a proxy locally for front-end development, we have set up a reverse proxy for NGINX deployed online.
-  .use(swagger())
+  .use(openaiPlugin)
   .use(authorityService)
   .use(userService)
   .listen(8090)
 
 export type App = typeof app
+export * from './types/models.ts'
 ```
 
 - Frontend
@@ -101,15 +114,22 @@ export type App = typeof app
 ```ts
 import { treaty } from '@elysiajs/eden'
 import type { App } from 'bun-api'
+import { toast } from 'sonner'
+
 const server = treaty<App>(import.meta.env.VITE_API_BASE_URL, {
   headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
-  onResponse: (res) => {
+  onResponse: async (res) => {
     if (!res.ok) {
-      // do something
+      const text = await res.text()
+      const status = res.status.toString()
+      toast.error(status, {
+        description: text,
+        position: 'top-center',
+      })
     }
   },
 })
-export default server
+export { server }
 ```
 
 Use
@@ -117,39 +137,44 @@ Use
 ```tsx
 import server from '@/lib/server'
 
-// in react
-const login = useCallback(async () => {
-  if (verificationCode) {
-    const { data, error } = await server.authority.login.post({ email: email, randomCode: verificationCode })
-    if (!error) {
-      localStorage.setItem('token', data)
-      console.log('Login successful!')
-      location.reload()
-    } else {
-      console.log(`Login failed with the error message is ${error.value}.`)
-    }
-  } else {
-    console.log('Please enter a verification code!')
-  }
-}, [verificationCode, email])
+// in frontend
+const { data: token, error } = await server.authority.login.post({ email, verificationCode })
+      
+if (!error) {
+   localStorage.setItem('token', token)
+   location.reload()
+}
 ```
 
 ## Set your environment variables
 
+`env.docker`
+
+`apps/backend/.env`
+
+`apps/frontend/.env`
+
+> The development environment needs to set the environment variable file in the corresponding project
+>
+
 ```dotenv
-DATABASE_URL=postgresql://root:password123@localhost:5432/bun-api
-# need change
-JWT_SECRETS=xxxxxxxxx
+# env.docker
+# common
+NODE_ENV='production'
 
-# You need to go to the corresponding platform mailbox to enable SMTP acquisition
-# See the file at "utils/nodemailer.ts"
-# need change
-NODEMAILER_AUTH_EMAIL=xxxxxx
-# need change
-NODEMAILER_AUTH_PASS=xxxxxx
+# Backend
+DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun-app
+JWT_SECRETS=xxxxx
+#You need to go to the corresponding platform email address to enable SMTP acquisition
+NODEMAILER_AUTH_EMAIL=xxxx
+NODEMAILER_AUTH_PASS=xxxxx
+REDIS_HOST=redis
+REDIS_PORT=6379
 
-REDIS_HOST = localhost
-REDIS_PORT = 6379
+# Frontend
+# nginx work
+VITE_API_BASE_URL='http://localhost:5173/api'
+VITE_PUBLIC_PATH='/'
 ```
 
 ## Development
