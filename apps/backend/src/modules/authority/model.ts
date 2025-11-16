@@ -24,4 +24,5 @@ export type AuthorityModelType = {
   getVerificationCodeResponse: typeof AuthorityModel.getVerificationCodeResponse.static
   loginBody: typeof AuthorityModel.loginBody.static
   loginResponse: typeof AuthorityModel.loginResponse.static
+  loginResponse400: typeof AuthorityModel.loginResponse400.static
 }

@@ -2,7 +2,7 @@ import { bearer } from '@elysiajs/bearer'
 import { jwt } from '@elysiajs/jwt'
 import { Elysia } from 'elysia'
 
-import { connection } from '../collection/mysql'
+import { connection } from '../collection/db'
 
 export const AuthPlugin = new Elysia({ name: 'auth' })
   .use(bearer())
