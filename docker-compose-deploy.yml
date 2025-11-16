@@ -28,8 +28,6 @@ services:
     container_name: frontend
     env_file:
       - .env.docker
-    environment:
-      - NODE_ENV=production
     depends_on:
       -  backend
     ports:
@@ -44,9 +42,6 @@ services:
     container_name: backend
     env_file:
       - .env.docker
-    environment:
-      - DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun_app
-      - NODE_ENV=production
     depends_on:
       - postgres
       - redis
