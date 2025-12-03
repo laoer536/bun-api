@@ -4,7 +4,7 @@ import { EmailLogin } from '@/components/molecules/EmailLogin'
 import { Loading } from '@/components/molecules/Loading'
 import { server } from '@/lib/server'
 import { getTypedServer } from '@/lib/utils.ts'
-import { UserModelType } from 'bun-api'
+import { UserModelType } from 'backend'
 
 function App() {
   const { data, isSuccess } = useQuery({
