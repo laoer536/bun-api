@@ -1,5 +1,5 @@
 /** Use prisma ORM  **/
 import { PrismaClient } from '../../generated/prisma_client'
-const connection = new PrismaClient()
+const prisma = new PrismaClient()
 
-export { connection }
+export { prisma }

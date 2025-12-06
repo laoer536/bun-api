@@ -3,7 +3,7 @@ import { Elysia } from 'elysia'
 import { AuthorityModel } from './model'
 import { AuthorityService } from './service.ts'
 
-export const authorityService = new Elysia({ tags: ['Authority'] })
+export const authority = new Elysia({ tags: ['Authority'] })
   .use(
     jwt({
       name: 'jwt',

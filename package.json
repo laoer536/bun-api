@@ -17,6 +17,7 @@
     "frontend:build": "bun frontend build",
     "backend": "bun --filter backend",
     "backend:docker-build": "bun backend build:docker",
+    "crud": "bun backend crud",
     "prisma:new": "bun backend prisma:new",
     "prisma:pull": "bun backend prisma:pull",
     "prisma:push": "bun backend prisma:push",

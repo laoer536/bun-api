@@ -3,7 +3,7 @@ import type { AuthorityModelType } from './model'
 import { generateVerificationCode } from './utils.ts'
 import { redis } from '../../collection/redis.ts'
 import { sendEmail } from '../../utils/nodemailer.ts'
-import { connection } from '../../collection/db.ts'
+import { prisma } from '../../collection/db.ts'
 import { status } from 'elysia'
 
 // If the class does not need to store properties, you can use 'abstract class' to avoid class instance allocation
@@ -21,7 +21,7 @@ export abstract class AuthorityService {
       throw status(400, 'Please get a verification code first.')
     }
     if (verificationCode === preVerificationCode) {
-      const userInfo = await connection.user.upsert({
+      const userInfo = await prisma.user.upsert({
         where: { email },
         update: { email },
         create: { email },

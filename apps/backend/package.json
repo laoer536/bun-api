@@ -7,6 +7,7 @@
     "build": "bun build src/index.ts --target bun --outdir ./dist",
     "build:docker": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server ./src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
+    "crud": "bun run scripts/generate-crud.ts",
     "prisma:new": "prisma migrate dev && prisma generate",
     "prisma:pull": "prisma db pull && prisma generate",
     "prisma:push": "prisma db push && prisma generate",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@mrleebo/prisma-ast": "^0.13.1",
     "@types/nodemailer": "^7.0.3",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",

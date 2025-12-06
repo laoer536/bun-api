@@ -2,7 +2,7 @@ import { bearer } from '@elysiajs/bearer'
 import { jwt } from '@elysiajs/jwt'
 import { Elysia } from 'elysia'
 
-import { connection } from '../collection/db'
+import { prisma } from '../collection/db'
 
 export const AuthPlugin = new Elysia({ name: 'auth' })
   .use(bearer())
@@ -16,7 +16,7 @@ export const AuthPlugin = new Elysia({ name: 'auth' })
     if (!bearer) status(401, 'Unauthorized')
     const payload = (await jwt.verify(bearer).catch(() => null)) as { email: string } | null
     if (!payload?.email) return status(401, 'Login required')
-    const userInfo = await connection.user.findUnique({ where: { email: payload.email } })
+    const userInfo = await prisma.user.findUnique({ where: { email: payload.email } })
     if (!userInfo) return status(401, 'Registration is required')
     return { userInfo }
   })

@@ -10,14 +10,14 @@ datasource db {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  User      User     @relation(fields: [authorId], references: [id])
+  id        Int      @id @default(autoincrement()) // 自增
+  createdAt DateTime @default(now()) // 创建时间
+  updatedAt DateTime @updatedAt // 更新时间
+  title     String   @db.VarChar(255) // 文章标题
+  content   String? // 文章内容
+  published Boolean  @default(false) // 发布状态
+  authorId  Int // 作者id
+  User      User     @relation(fields: [authorId], references: [id]) // 关联
 }
 
 model Profile {
