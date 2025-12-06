@@ -1,13 +1,24 @@
-# Elysia with Bun runtime
+# Fullstack App with Bun & Elysia
 
+![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
+![Elysia](https://img.shields.io/badge/Elysia-JS-23c4e7?style=for-the-badge)
+![React](https://img.shields.io/badge/React-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-## Why use bun and Elysia
+[中文文档](./README_zh.md)
 
-[Performance](https://elysiajs.com/at-glance.html#performance)
+A high-performance, full-stack web application template built with the modern **Bun** runtime. This project leverages **ElysiaJS** for a blazing fast backend and **React** (via Vite) for a responsive frontend, all integrated within a **Bun Workspace** monorepo structure.
 
-Building on Bun and extensive optimization like Static Code Analysis allows Elysia to generate optimized code on the fly.
+## 🚀 Why use Bun and Elysia?
 
-Elysia can outperform most of the web frameworks available today[[1\]](https://elysiajs.com/at-glance.html#ref-1), and even match the performance of Golang and Rust framework[[2\]](https://elysiajs.com/at-glance.html#ref-2).
+**[Performance](https://elysiajs.com/at-glance.html#performance)**
+
+Building on Bun and extensive optimization like Static Code Analysis allows Elysia to generate optimized code on the fly. Elysia can outperform most of the web frameworks available today, and even match the performance of Golang and Rust frameworks.
 
 | Framework     | Runtime | Average     | Plain Text | Dynamic Parameters | JSON Body  |
 | :------------ | :------ | :---------- | :--------- | :----------------- | :--------- |
@@ -23,190 +34,196 @@ Elysia can outperform most of the web frameworks available today[[1\]](https://e
 | express       | bun     | 29,715.537  | 39,455.46  | 34,700.85          | 14,990.3   |
 | express       | node    | 15,913.153  | 17,736.92  | 17,128.7           | 12,873.84  |
 
-![2024-05-06 12.51.00.png](https://s2.loli.net/2024/05/06/1TDsQYSHNvngmw9.png)
+![Performance Comparison](https://s2.loli.net/2024/05/06/1TDsQYSHNvngmw9.png)
 
-## Api docs
+## 🛠️ Tech Stack
 
-![_6-7-2024_2148_localhost.jpeg](https://s2.loli.net/2024/07/06/POZSw2aNh1D8LQY.jpg)
+- **Runtime**: [Bun](https://bun.sh/)
+- **Backend Framework**: [ElysiaJS](https://elysiajs.com/)
+- **Frontend Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Database**: PostgreSQL + [Prisma](https://www.prisma.io/)
+- **Caching**: Redis
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 
-## Frontend web
+## 📂 Project Structure
 
-![2024-10-14 00.02.46.png](https://s2.loli.net/2024/10/14/iYnoLk8QFrzuOs1.png)
+This project uses **Bun Workspaces** to manage the monorepo.
 
-## Full stack development
-
-- Bun workspaces
-
-  Project structure
-
-  ```
-  .
-  ├── package.json
-  ├── node_modules
-  └── apps
-    ├── frontend
-    │   └── package.json
-    └── backend
-        └── package.json
-  ```
-
-  Configuration is required for Workspace to take effect
-
-  ```json
-  {
-    "name": "fullstack-for-bun-api",
-    "version": "1.0.50",
-    "workspaces": [
-      "apps/**"
-    ],
-    "trustedDependencies": [
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma"
-    ],
-    "scripts": {
-      "dev": "bun --filter '*' dev",
-      "build": "bun --filter '*' build",
-      "lint": "bun --filter '*' lint",
-      "frontend": "bun --filter frontend",
-      "frontend:build": "bun frontend build",
-      "backend": "bun --filter backend",
-      "backend:docker-build": "bun backend build:docker",
-      "prisma:new": "bun backend prisma:new",
-      "prisma:pull": "bun backend prisma:pull",
-      "prisma:push": "bun backend prisma:push",
-      "prisma:deploy": "bun backend prisma:deploy",
-      "prisma:migrate": "bun backend prisma:migrate",
-      "prisma:generate": "bun backend prisma:generate",
-      "docker:dev": "docker-compose up -d",
-      "docker:deploy": "docker-compose -f docker-compose-deploy.yml up -d --build"
-    },
-    "devDependencies": {
-      "prettier": "^3.2.5"
-    }
-  }
-  ```
-
-- Backend
-
-```ts
-import { cors } from '@elysiajs/cors'
-import { Elysia } from 'elysia'
-
-import { openaiPlugin } from './plugin/openai'
-import { authorityService, userService } from './services'
-
-export const app = new Elysia()
-  .use(cors({ origin: false })) // Why is 'origin: false'? Because we have configured a proxy locally for front-end development, we have set up a reverse proxy for NGINX deployed online.
-  .use(openaiPlugin)
-  .use(authorityService)
-  .use(userService)
-  .listen(8090)
-
-export type App = typeof app
-export * from './types/models.ts'
+```
+.
+├── apps
+│   ├── backend     # ElysiaJS API Server
+│   └── frontend    # React + Vite Client
+├── docker-compose.yml
+├── package.json
+└── README.md
 ```
 
-- Frontend
+## 💻 Backend Development
 
-  lib/server.ts
+### Architecture Standards
 
-```ts
+The backend follows a **Controller-Service-Model** architecture:
+
+- **Model (`model.ts`)**: Defines data structure, validation schemas (Elysia `t`), and response types.
+- **Service (`service.ts`)**: Business logic and database interactions (Prisma).
+- **Controller (`index.ts`)**: API routes and handlers.
+
+### CRUD Generation
+
+Use the generator script to create boilerplate code for Prisma models:
+
+```bash
+bun run scripts/generate-crud.ts <ModelName> [OtherModelName ...]
+```
+
+**Example:**
+```bash
+bun run scripts/generate-crud.ts Post
+```
+This creates `src/modules/post` with `model.ts`, `service.ts`, and `index.ts`.
+
+## 📜 Scripts
+
+Run these commands from the root directory:
+
+### General
+
+| Command | Description |
+| :--- | :--- |
+| `bun run dev` | Start both frontend and backend in development mode (concurrently) |
+| `bun run build` | Build both frontend and backend for production |
+| `bun run lint` | Run linting for all packages |
+
+### Frontend
+
+| Command | Description |
+| :--- | :--- |
+| `bun run frontend` | Target the frontend workspace (helper for running commands) |
+| `bun run frontend:build` | Build only the frontend |
+
+### Backend
+
+| Command | Description |
+| :--- | :--- |
+| `bun run backend` | Target the backend workspace (helper for running commands) |
+| `bun run backend:docker-build` | Build the backend Docker image |
+| `bun run crud` | Run the CRUD generator script (alias for `generate-crud.ts`) |
+
+### Database (Prisma)
+
+| Command | Description |
+| :--- | :--- |
+| `bun run prisma:push` | Push the Prisma schema state to the database (prototyping) |
+| `bun run prisma:pull` | Pull the schema from an existing database |
+| `bun run prisma:generate` | Generate the Prisma Client based on your schema |
+| `bun run prisma:migrate` | Create a migration from changes in Prisma schema, apply it to the database, trigger generators |
+| `bun run prisma:deploy` | Apply pending migrations to the database (production) |
+| `bun run prisma:new` | Create a new migration file without applying it |
+
+### Docker
+
+| Command | Description |
+| :--- | :--- |
+| `bun run docker:dev` | Start development infrastructure (PostgreSQL, Redis) using Docker Compose |
+| `bun run docker:deploy` | Deploy the full stack application using Docker Compose |
+
+## 🎨 Frontend Development
+
+### API Integration
+
+The frontend uses **[Eden Treaty](https://elysiajs.com/eden/treaty.html)** for end-to-end type safety.
+
+**Setup (`lib/server.ts`):**
+```typescript
 import { treaty } from '@elysiajs/eden'
-import type { App } from 'bun-api'
-import { toast } from 'sonner'
+import type { App } from 'backend'
 
 const server = treaty<App>(import.meta.env.VITE_API_BASE_URL, {
   headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
-  onResponse: async (res) => {
-    if (!res.ok) {
-      const text = await res.text()
-      const status = res.status.toString()
-      toast.error(status, {
-        description: text,
-        position: 'top-center',
-      })
-    }
-  },
+  // ... error handling
 })
 export { server }
 ```
 
-Use
-
+**Usage:**
 ```tsx
-import server from '@/lib/server'
-
-// in frontend
-const { data: token, error } = await server.authority.login.post({ email, verificationCode })
-      
-if (!error) {
-   localStorage.setItem('token', token)
-   location.reload()
-}
+import { server } from '@/lib/server'
+// ... inside component
+const { data, error } = await server.user.profile.get()
 ```
 
-## Set your environment variables
+## 📸 Screenshots
 
-`env.docker`
+### API Documentation
+![Swagger UI](https://s2.loli.net/2024/07/06/POZSw2aNh1D8LQY.jpg)
+*Access at: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)*
 
-`apps/backend/.env`
+### Frontend Web
+![Frontend Home](https://s2.loli.net/2024/10/14/iYnoLk8QFrzuOs1.png)
 
-`apps/frontend/.env`
+## 🏁 Getting Started
 
-> The development environment needs to set the environment variable file in the corresponding project
->
+### Prerequisites
+- [Bun](https://bun.sh/) (v1.0.0+)
+- [Docker](https://www.docker.com/) & Docker Compose
 
-```dotenv
-# env.docker
-# common
-NODE_ENV='production'
+### Installation
 
-# Backend
-DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun-app
-JWT_SECRETS=xxxxx
-#You need to go to the corresponding platform email address to enable SMTP acquisition
-NODEMAILER_AUTH_EMAIL=xxxx
-NODEMAILER_AUTH_PASS=xxxxx
-REDIS_HOST=redis
-REDIS_PORT=6379
+1.  **Clone & Install**
+    ```bash
+    git clone <repository-url>
+    cd <project-directory>
+    bun install
+    ```
 
-# Frontend
-# nginx work
-VITE_API_BASE_URL='http://localhost:5173/api'
-VITE_PUBLIC_PATH='/'
-```
+2.  **Environment Setup**
+    Copy `.env.example` to `.env` in `apps/backend` and `apps/frontend`.
 
-## Development
+    **`.env.docker` Configuration (Production/Docker)**
+    ```dotenv
+    # common
+    NODE_ENV='production'
 
-To start the development server run:
+    # Backend
+    DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun-app
+    JWT_SECRETS=xxxxx
+    # SMTP Configuration
+    NODEMAILER_AUTH_EMAIL=xxxx
+    NODEMAILER_AUTH_PASS=xxxxx
+    REDIS_HOST=redis
+    REDIS_PORT=6379
 
-```docker
-docker-compose up -d
-```
+    # Frontend
+    VITE_API_BASE_URL='http://localhost:5173/api'
+    VITE_PUBLIC_PATH='/'
+    ```
 
-```shell
-bun run prisma:push
-```
+3.  **Start Infrastructure**
+    ```bash
+    docker-compose up -d
+    bun run prisma:push
+    ```
 
-```shell
+### Development
+Start both frontend and backend:
+```bash
 bun run dev
 ```
+- Frontend: [http://localhost:5173](http://localhost:5173)
+- Backend: [http://localhost:8090](http://localhost:8090)
+- API Docs: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)
 
-## Deploy app
+## 🐳 Deployment
 
-```shell
+Deploy using Docker Compose:
+
+```bash
 bun run docker:deploy
-```
-
-or
-
-```shell
+# OR
 docker-compose -f docker-compose-deploy.yml up -d --build
 ```
 
-Open http://localhost:5173/ with your browser to see the `frontend` project.
+## 📄 License
 
-Open http://localhost:8090/ with your browser to see the `backend` project.
-
-Open http://localhost:8090/v1-openai with your browser to see the interface documentation.
+MIT License
