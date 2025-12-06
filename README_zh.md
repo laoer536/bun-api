@@ -127,8 +127,8 @@ const { data, error } = await server.user.profile.get()
 
 1.  **克隆与安装**
     ```bash
-    git clone <repository-url>
-    cd <project-directory>
+    git clone https://github.com/laoer536/bun-api
+    cd bun-api
     bun install
     ```
 
@@ -169,7 +169,7 @@ bun run dev
 - 后端: [http://localhost:8090](http://localhost:8090)
 - API 文档: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)
 
-## � 脚本
+## ▶ 脚本
 
 在根目录下运行这些命令：
 

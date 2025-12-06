@@ -172,8 +172,8 @@ const { data, error } = await server.user.profile.get()
 
 1.  **Clone & Install**
     ```bash
-    git clone <repository-url>
-    cd <project-directory>
+    git clone https://github.com/laoer536/bun-api
+    cd bun-api
     bun install
     ```
 
