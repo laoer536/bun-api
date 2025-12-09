@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - pg-data:/var/lib/postgresql/data
     restart: always
 
   redis:
@@ -21,15 +21,6 @@ services:
       - redis-data:/data
     restart: always
 
-#  jaeger:
-#    image: jaegertracing/all-in-one:latest
-#    ports:
-#      - "6831:6831/udp"
-#      - "5775:5775/udp"
-#      - "16686:16686"
-#      - "14268:14268"
-#    restart: always
-
 volumes:
-  mysql-data:
+  pg-data:
   redis-data:

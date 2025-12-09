@@ -3,13 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import { EmailLogin } from '@/components/molecules/EmailLogin'
 import { Loading } from '@/components/molecules/Loading'
 import { server } from '@/lib/server'
-import { getTypedServer } from '@/lib/utils.ts'
-import { UserModelType } from 'backend'
 
 function App() {
   const { data, isSuccess } = useQuery({
     queryKey: ['users'],
-    queryFn: () => getTypedServer<UserModelType['users']>(server.user.get),
+    queryFn: () => server.users.get(),
   })
   if (!isSuccess) {
     return <Loading />

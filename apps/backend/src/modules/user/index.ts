@@ -1,14 +1,11 @@
 import { Elysia } from 'elysia'
 
-import { AuthPlugin } from '../../plugin/auth'
-import { UserModel } from './model.ts'
 import { UserService } from './service.ts'
+import { UserModel } from './model.ts'
 
-export const user = new Elysia({ tags: ['User'] }).use(AuthPlugin).get(
-  '/user',
-  async (ctx) => {
-    const userInfo = ctx.userInfo // The ‘auth’ plugin has processed the situation where userInfo is not available.
-    console.log(userInfo)
+export const user = new Elysia({ tags: ['User'] }).get(
+  '/users',
+  async () => {
     return UserService.getUsers()
   },
   {

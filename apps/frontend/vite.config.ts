@@ -23,7 +23,7 @@ export default ({ command, mode }: ConfigEnv) => {
     server: {
       proxy: {
         '/api': {
-          target: 'http://localhost:8090',
+          target: currentEnv.VITE_BACKEND_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { server } from '@/lib/server'
 import { useRef, useState } from 'react'
+import { signUp } from '@/lib/auth-client.ts'
 
 export function EmailLogin() {
   const [isVerificationCodeMode, setIsVerificationCodeMode] = useState(true)
@@ -47,6 +48,18 @@ export function EmailLogin() {
         <CardTitle className="text-2xl">
           <img src="https://elysiajs.com/assets/elysia.svg" alt="elysia" />
           Login Bun+Elysia+Prisma+React+Tailwindcss
+          <Button
+            onClick={() =>
+              signUp.email({
+                name: 'Neo',
+                email: 'coderme3@qq.com',
+                password: 'atliujiejhbhbdjjsd',
+                callbackURL: '/dashboard',
+              })
+            }
+          >
+            login
+          </Button>
         </CardTitle>
         <CardDescription>Enter your email below to login to your account.</CardDescription>
       </CardHeader>

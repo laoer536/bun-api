@@ -3,9 +3,11 @@ import { Elysia } from 'elysia'
 
 import { openaiPlugin } from './plugin/openai'
 import { authority, user } from './modules'
+import { betterAuthView } from './lib/auth'
 
 export const app = new Elysia()
   .use(cors({ origin: false })) // Why is 'origin: false'? Because we have configured a proxy locally for front-end development, we have set up a reverse proxy for NGINX deployed online.
+  .mount('/auth', betterAuthView)
   .use(openaiPlugin)
   .use(authority)
   .use(user)
