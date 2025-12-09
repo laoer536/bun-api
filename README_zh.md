@@ -115,7 +115,7 @@ const { data, error } = await server.user.profile.get()
 *访问地址: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)*
 
 ### 前端页面
-![前端首页](https://s2.loli.net/2024/10/14/iYnoLk8QFrzuOs1.png)
+![image.png](https://s2.loli.net/2025/12/09/oQ237He8t4RVfdN.png)
 
 ## 🏁 快速开始
 
