@@ -1,9 +1,10 @@
+import { Elysia } from 'elysia'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { PrismaClient } from '../../generated/prisma_client'
 // If your Prisma file is located elsewhere, you can change the path
-import { PrismaClient } from '../../../generated/prisma_client'
 const prisma = new PrismaClient()
-export const auth = betterAuth({
+const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
@@ -13,7 +14,7 @@ export const auth = betterAuth({
   }),
 })
 
-export const betterAuthView = (request: Request) => {
+const betterAuthView = (request: Request) => {
   const BETTER_AUTH_ACCEPT_METHODS = ['POST', 'GET']
   // validate request method
   if (BETTER_AUTH_ACCEPT_METHODS.includes(request.method)) {
@@ -29,3 +30,5 @@ export const betterAuthView = (request: Request) => {
     )
   }
 }
+
+export const betterAuthPlugin = new Elysia({ name: 'better-auth' }).mount('/auth', betterAuthView)

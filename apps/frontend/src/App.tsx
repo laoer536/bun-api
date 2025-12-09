@@ -1,29 +1,29 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { EmailLogin } from '@/components/molecules/EmailLogin'
 import { Loading } from '@/components/molecules/Loading'
 import { server } from '@/lib/server'
+import { useSession } from '@/lib/auth-client.ts'
+import { AuthCard } from '@/components/molecules/AuthCard.tsx'
 
 function App() {
-  const { data, isSuccess } = useQuery({
+  const { data: user } = useSession()
+  const { data: users } = useQuery({
     queryKey: ['users'],
     queryFn: () => server.users.get(),
+    enabled: !!user,
   })
-  if (!isSuccess) {
-    return <Loading />
-  }
   return (
     <div className="h-screen flex items-center justify-center">
-      {data.error ? (
-        <EmailLogin />
-      ) : (
+      {user ? (
         <div className="flex flex-col gap-2">
-          {data.data.map((user) => (
+          {users?.data?.map((user) => (
             <div key={user.id}>
               {user.name}----{user.email}
             </div>
           ))}
         </div>
+      ) : (
+        <AuthCard />
       )}
     </div>
   )
