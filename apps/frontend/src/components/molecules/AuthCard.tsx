@@ -22,7 +22,7 @@ const registerSchema = z.object({
 })
 
 export function AuthCard() {
-  // Forms
+  // separate forms completely
   const loginForm = useForm({ resolver: zodResolver(loginSchema) })
   const registerForm = useForm({ resolver: zodResolver(registerSchema) })
 
@@ -34,7 +34,7 @@ export function AuthCard() {
   }
 
   /** Register */
-  const onRegisterSubmit = async (values: z.infer<typeof registerSchema>) => {
+  const onRegisterSubmit = async (values: z.Infer<typeof registerSchema>) => {
     const { name, email, password } = values
     const { error } = await signUp.email({ name, email, password })
     if (!error) toast.success('Account created!')
@@ -43,7 +43,7 @@ export function AuthCard() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl gap-2">
+        <CardTitle className="text-2xl">
           <img src="https://elysiajs.com/assets/elysia.svg" alt="elysia" className={'mb-4'} />
           <div>Bun + Elysia + Prisma + React</div>
         </CardTitle>
@@ -63,18 +63,16 @@ export function AuthCard() {
               <div className="grid gap-2">
                 <Label>Email</Label>
                 <Input type="email" placeholder="m@example.com" {...loginForm.register('email')} />
-                {loginForm.formState.errors.email && (
-                  <p className="text-red-500 text-sm">{loginForm.formState.errors.email.message}</p>
-                )}
               </div>
 
               <div className="grid gap-2">
                 <Label>Password</Label>
                 <Input type="password" placeholder="••••••••" {...loginForm.register('password')} />
-                {loginForm.formState.errors.password && (
-                  <p className="text-red-500 text-sm">{loginForm.formState.errors.password.message}</p>
-                )}
               </div>
+
+              <Button className="w-full" type="submit">
+                Sign In
+              </Button>
             </form>
           </TabsContent>
 
@@ -84,46 +82,27 @@ export function AuthCard() {
               <div className="grid gap-2">
                 <Label>Name</Label>
                 <Input type="text" placeholder="Your name" {...registerForm.register('name')} />
-                {registerForm.formState.errors.name && (
-                  <p className="text-red-500 text-sm">{registerForm.formState.errors.name.message}</p>
-                )}
               </div>
 
               <div className="grid gap-2">
                 <Label>Email</Label>
                 <Input type="email" placeholder="m@example.com" {...registerForm.register('email')} />
-                {registerForm.formState.errors.email && (
-                  <p className="text-red-500 text-sm">{registerForm.formState.errors.email.message}</p>
-                )}
               </div>
 
               <div className="grid gap-2">
                 <Label>Password</Label>
                 <Input type="password" placeholder="••••••••" {...registerForm.register('password')} />
-                {registerForm.formState.errors.password && (
-                  <p className="text-red-500 text-sm">{registerForm.formState.errors.password.message}</p>
-                )}
               </div>
+
+              <Button className="w-full" type="submit">
+                Register
+              </Button>
             </form>
           </TabsContent>
         </Tabs>
       </CardContent>
 
-      <CardFooter>
-        <Tabs defaultValue="login" className="w-full">
-          <TabsContent value="login">
-            <Button className="w-full" onClick={loginForm.handleSubmit(onLoginSubmit)}>
-              Sign In
-            </Button>
-          </TabsContent>
-
-          <TabsContent value="register">
-            <Button className="w-full" onClick={registerForm.handleSubmit(onRegisterSubmit)}>
-              Register
-            </Button>
-          </TabsContent>
-        </Tabs>
-      </CardFooter>
+      <CardFooter />
     </Card>
   )
 }
