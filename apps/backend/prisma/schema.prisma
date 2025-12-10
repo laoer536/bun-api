@@ -14,6 +14,7 @@ generator prismabox {
   typeboxImportDependencyName = "elysia"
   typeboxImportVariableName   = "t"
   inputModel                  = true
+  additionalProperties        = true
   output                      = "../generated/prismabox"
 }
 
