@@ -4,7 +4,6 @@ services:
   postgres:
     image: postgres:17
     environment:
-      POSTGRES_DB: bun-api
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password123
     ports:
