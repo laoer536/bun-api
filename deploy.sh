@@ -27,19 +27,19 @@ set +a
 # 1. Build a mirror
 # ------------------------
 echo "📦 Building images..."
-docker compose -f docker-compose-deploy.yml build
+docker compose -f docker-compose.deploy.yml build
 echo "⭕ Build completed."
 
 # ------------------------
 # 2. Run the migration（one-shot）
 # ------------------------
 echo "🗄️ Running Prisma migration..."
-docker compose -f docker-compose-deploy.yml run --rm migrate
+docker compose -f docker-compose.deploy.yml run --rm migrate
 echo "⭕ Migration completed."
 
 # ------------------------
 # 3. Start the service
 # ------------------------
 echo "🚀 Starting services..."
-docker compose -f docker-compose-deploy.yml up -d backend frontend
+docker compose -f docker-compose.deploy.yml up -d backend frontend
 echo "✨ All services started successfully!"
