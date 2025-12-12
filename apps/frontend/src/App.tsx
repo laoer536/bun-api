@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Loading } from '@/components/molecules/Loading'
 import { server } from '@/lib/server'
 import { useSession } from '@/lib/auth-client.ts'
 import { AuthCard } from '@/components/molecules/AuthCard.tsx'
