@@ -232,7 +232,7 @@ Deploy using Docker Compose:
 ```bash
 bun run docker:deploy
 # OR
-docker-compose -f docker-compose-deploy.yml up -d --build
+sh ./deploy.sh .env.docker
 ```
 
 ## 📄 License

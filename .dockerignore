@@ -14,6 +14,9 @@ helm-charts
 coverage*
 dist
 
-.env
-.env.*
+# Ignore .env files in all directories
+**/*.env
+**/*.env.*
+
+# But keep the root .env.docker (for build)
 !.env.docker

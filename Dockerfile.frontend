@@ -1,9 +1,19 @@
 FROM oven/bun AS build
 WORKDIR /app
+
+# environment variable
+
+ARG NODE_ENV
+ARG VITE_API_BASE_URL
+ARG VITE_PUBLIC_PATH
+
+ENV NODE_ENV=$NODE_ENV \
+    VITE_API_BASE_URL=$VITE_API_BASE_URL \
+    VITE_PUBLIC_PATH=$VITE_PUBLIC_PATH
+
+# build
 COPY . .
 RUN bun install
-
-ENV NODE_ENV=production
 RUN bun run frontend:build
 
 FROM nginx:alpine AS deploy

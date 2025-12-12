@@ -11,6 +11,12 @@ services:
       - bun-api-postgres-data:/var/lib/postgresql/data
     networks:
       - database-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
   redis:
     image: redis:latest
@@ -25,9 +31,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      args:
+        NODE_ENV: ${NODE_ENV}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+        VITE_PUBLIC_PATH: ${VITE_PUBLIC_PATH}
     container_name: bun-api-frontend
-    env_file:
-      - .env.docker
     depends_on:
       -  backend
     ports:
@@ -39,15 +47,38 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
+      args:
+        NODE_ENV: ${NODE_ENV}
     container_name: bun-api-backend
-    env_file:
-      - .env.docker
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+      NODEMAILER_AUTH_EMAIL: ${NODEMAILER_AUTH_EMAIL}
+      NODEMAILER_AUTH_PASS: ${NODEMAILER_AUTH_PASS}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - database-network
       - app-network
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      target: build   # Using the build phase (with prisma CLI)
+    command: [ "bun", "run", "prisma:deploy" ]
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - database-network
 
 volumes:
   bun-api-postgres-data:

@@ -25,7 +25,7 @@
     "prisma:migrate": "bun backend prisma:migrate",
     "prisma:generate": "bun backend prisma:generate",
     "docker:dev": "docker-compose up -d",
-    "docker:deploy": "docker-compose -f docker-compose-deploy.yml up -d --build"
+    "docker:deploy": "sh ./deploy.sh .env.docker"
   },
   "devDependencies": {
     "prettier": "^3.2.5"

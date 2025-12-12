@@ -232,7 +232,7 @@ bun run dev
 ```bash
 bun run docker:deploy
 # 或者
-docker-compose -f docker-compose-deploy.yml up -d --build
+sh ./deploy.sh .env.docker
 ```
 
 ## 📄 许可证
