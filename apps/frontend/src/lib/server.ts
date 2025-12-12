@@ -3,7 +3,8 @@ import type { App } from 'backend'
 import { toast } from 'sonner'
 
 const server = treaty<App>(import.meta.env.VITE_API_BASE_URL, {
-  headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
+  // headers: [() => ({ authorization: `Bearer ${localStorage.getItem('token')}` })],
+  headers: [], // better-auth auto use cookie for auth
   onResponse: async (res) => {
     if (!res.ok) {
       const text = await res.text()
