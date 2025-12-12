@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    container_name: frontend
+    container_name: bun-api-frontend
     env_file:
       - .env.docker
     depends_on:
@@ -39,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
-    container_name: backend
+    container_name: bun-api-backend
     env_file:
       - .env.docker
     depends_on:
