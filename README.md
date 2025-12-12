@@ -195,21 +195,19 @@ const { data, error } = await server.user.profile.get()
     ```dotenv
     # common
     NODE_ENV='production'
-
-    # Backend
-    DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun-app
-    JWT_SECRETS=xxxxx
-    # SMTP Configuration
-    NODEMAILER_AUTH_EMAIL=xxxx
-    NODEMAILER_AUTH_PASS=xxxxx
+    
+    # back-end
+    DATABASE_URL=postgresql://postgres:password123@postgres:5432/bun_app
     REDIS_HOST=redis
     REDIS_PORT=6379
-
-    # Frontend
+    FRONTEND_URL=http://localhost:5173
+    
+    # front-end
+    # nginx work
     VITE_API_BASE_URL='http://localhost:5173/api'
     VITE_PUBLIC_PATH='/'
     ```
-
+    
 3.  **Start Infrastructure**
     ```bash
     docker-compose up -d

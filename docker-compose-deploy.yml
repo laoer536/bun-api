@@ -53,10 +53,9 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
       DATABASE_URL: ${DATABASE_URL}
-      NODEMAILER_AUTH_EMAIL: ${NODEMAILER_AUTH_EMAIL}
-      NODEMAILER_AUTH_PASS: ${NODEMAILER_AUTH_PASS}
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
+      FRONTEND_URL: ${FRONTEND_URL}
     depends_on:
       postgres:
         condition: service_healthy
