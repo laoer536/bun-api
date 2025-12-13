@@ -14,6 +14,7 @@
     "prisma:migrate": "prisma migrate dev --name",
     "prisma:deploy": "prisma migrate deploy && prisma generate",
     "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
     "postinstall": "prisma generate"
   },

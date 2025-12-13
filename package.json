@@ -24,6 +24,7 @@
     "prisma:deploy": "bun backend prisma:deploy",
     "prisma:migrate": "bun backend prisma:migrate",
     "prisma:generate": "bun backend prisma:generate",
+    "prisma:studio": "bun backend prisma:studio",
     "docker:dev": "docker-compose up -d",
     "docker:deploy": "sh ./deploy.sh .env.docker"
   },
