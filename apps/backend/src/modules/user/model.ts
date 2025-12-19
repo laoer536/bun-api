@@ -1,5 +1,5 @@
 import { t } from 'elysia'
-import { UserPlain } from '../../../generated/prismabox/User'
+import { UserPlain } from '@generated/prismabox/User.ts'
 
 export const UserModel = {
   users: t.Array(UserPlain),

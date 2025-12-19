@@ -1,4 +1,4 @@
-import { prisma } from '../../collection/db.ts'
+import { prisma } from '@/lib/prisma.ts'
 
 export abstract class UserService {
   static async getUsers() {
