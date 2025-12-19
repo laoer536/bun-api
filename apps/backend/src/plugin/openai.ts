@@ -1,5 +1,5 @@
 import { openapi } from '@elysiajs/openapi'
-export const openaiPlugin = openapi({
+export const openapiPlugin = openapi({
   enabled: true,
   path: '/v1-openai',
   documentation: {
