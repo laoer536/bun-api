@@ -1,7 +1,7 @@
 import { cors } from '@elysiajs/cors'
 import { Elysia } from 'elysia'
 
-import { openapiPlugin } from './plugin/openai'
+import { openapiPlugin } from './plugin/openapi'
 import { authority, user } from './modules'
 import { betterAuthPlugin } from './plugin/better-auth'
 

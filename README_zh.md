@@ -123,7 +123,7 @@ const { data, error } = await server.user.profile.get()
 
 ### API 文档
 ![Swagger UI](https://s2.loli.net/2024/07/06/POZSw2aNh1D8LQY.jpg)
-*访问地址: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)*
+*访问地址: [http://localhost:8090/v1-openapi](http://localhost:8090/v1-openapi)*
 
 ### 前端页面
 ![image.png](https://s2.loli.net/2025/12/09/oQ237He8t4RVfdN.png)
@@ -176,7 +176,7 @@ bun run dev
 ```
 - 前端: [http://localhost:5173](http://localhost:5173)
 - 后端: [http://localhost:8090](http://localhost:8090)
-- API 文档: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)
+- API 文档: [http://localhost:8090/v1-openapi](http://localhost:8090/v1-openapi)
 
 ## ▶ 脚本
 

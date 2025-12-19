@@ -168,7 +168,7 @@ const { data, error } = await server.user.profile.get()
 
 ### API Documentation
 ![Swagger UI](https://s2.loli.net/2024/07/06/POZSw2aNh1D8LQY.jpg)
-*Access at: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)*
+*Access at: [http://localhost:8090/v1-openapi](http://localhost:8090/v1-openapi)*
 
 ### Frontend Web
 ![image.png](https://s2.loli.net/2025/12/09/oQ237He8t4RVfdN.png)
@@ -221,7 +221,7 @@ bun run dev
 ```
 - Frontend: [http://localhost:5173](http://localhost:5173)
 - Backend: [http://localhost:8090](http://localhost:8090)
-- API Docs: [http://localhost:8090/v1-openai](http://localhost:8090/v1-openai)
+- API Docs: [http://localhost:8090/v1-openapi](http://localhost:8090/v1-openapi)
 
 ## 🐳 Deployment
 
