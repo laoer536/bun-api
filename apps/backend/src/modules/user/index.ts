@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 
-import { UserService } from './service.ts'
-import { UserModel } from './model.ts'
+import { UserService } from './service'
+import { UserModel } from './model'
 
 export const user = new Elysia({ tags: ['User'] }).get(
   '/users',
