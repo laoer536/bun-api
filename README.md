@@ -36,6 +36,8 @@ Building on Bun and extensive optimization like Static Code Analysis allows Elys
 
 ![Performance Comparison](https://s2.loli.net/2024/05/06/1TDsQYSHNvngmw9.png)
 ![image.png](https://s2.loli.net/2026/01/11/OBFpXq2KayATr1L.png)
+![image.png](https://s2.loli.net/2026/01/11/dItHATe9h8nyf37.png)
+![image.png](https://s2.loli.net/2026/01/11/CWGLIlaEFYvJt69.png)
 
 ## 🛠️ Tech Stack
 
