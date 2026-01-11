@@ -35,6 +35,7 @@ Building on Bun and extensive optimization like Static Code Analysis allows Elys
 | express       | node    | 15,913.153  | 17,736.92  | 17,128.7           | 12,873.84  |
 
 ![Performance Comparison](https://s2.loli.net/2024/05/06/1TDsQYSHNvngmw9.png)
+![image.png](https://s2.loli.net/2026/01/11/OBFpXq2KayATr1L.png)
 
 ## 🛠️ Tech Stack
 
