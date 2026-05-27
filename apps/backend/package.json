@@ -19,10 +19,13 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@elysia/opentelemetry": "^1.4.12",
     "@elysiajs/bearer": "^1.4.1",
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/jwt": "^1.4.0",
     "@elysiajs/openapi": "^1.4.11",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.218.0",
+    "@opentelemetry/sdk-trace-node": "^2.7.1",
     "@prisma/client": "^6.19.0",
     "better-auth": "^1.4.5",
     "elysia": "^1.4.15",
